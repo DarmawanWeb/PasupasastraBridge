@@ -1,0 +1,6 @@
+[submodule "dji-matrice-4t"]
+	path = dji-matrice-4t
+	url = ../pasupasastra-bridge-dji-matrice-4t.git
+[submodule "autel-evo2-v3"]
+	path = autel-evo2-v3
+	url = ../pasupasastra-bridge-autel-evo2-v3.git
