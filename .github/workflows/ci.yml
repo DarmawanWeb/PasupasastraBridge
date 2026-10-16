@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  submodules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - run: git submodule status --recursive
+      - name: every bridge has a README, a LICENSE and its own CI
+        run: |
+          status=0
+          for dir in $(git config -f .gitmodules --get-regexp '\.path$' | awk '{print $2}'); do
+            for file in README.md LICENSE .github/workflows/ci.yml; do
+              [ -f "$dir/$file" ] || { echo "::error::$dir is missing $file"; status=1; }
+            done
+          done
+          exit $status
